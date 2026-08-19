@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TarotPrompt · 塔罗反思提示词生成器：12 道自我状态问卷 + 3 张随机大阿卡纳，一键生成可粘贴到任意大模型的解读提示词。仅供娱乐与自我反思。">
+  <title>TarotPrompt · 塔罗反思提示词生成器</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- ======== 欢迎页 ======== -->
+    <section class="view" id="view-welcome">
+      <header class="hero">
+        <div class="logo-star">✦</div>
+        <h1 class="logo">TarotPrompt</h1>
+        <p class="subtitle">塔罗反思提示词生成器</p>
+      </header>
+
+      <p class="intro">完成 12 道自我状态小问卷 → 随机抽取 3 张大阿卡纳 → 一键生成可粘贴到任意大模型的解读提示词。</p>
+
+      <div class="notice">
+        <p><strong>本工具不内置 AI：</strong>只负责生成提示词，最终的解读由你复制到外部大模型（如 ChatGPT、Claude、DeepSeek 等）完成。</p>
+        <p><strong>抽牌与答题完全无关：</strong>卡牌由本地随机算法生成，正逆位各 50% 均等概率，你的答案不会影响抽牌结果。</p>
+      </div>
+
+      <button class="btn-primary" id="btn-start" type="button">开始探索</button>
+
+      <footer class="compliance">本工具为开源趣味心理反思玩具，卡牌由本地随机算法生成，仅供娱乐，不构成任何人生决策建议。</footer>
+    </section>
+
+    <!-- ======== 答题页 ======== -->
+    <section class="view hidden" id="view-quiz">
+      <header class="quiz-header">
+        <span class="progress-text" id="progress-text">1 / 12</span>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </header>
+      <main class="quiz-body">
+        <h2 class="question" id="question-text"></h2>
+        <div class="options" id="options"></div>
+      </main>
+    </section>
+
+    <!-- ======== 抽牌动画页 ======== -->
+    <section class="view hidden" id="view-draw">
+      <p class="draw-title">正在抽取牌面…</p>
+      <div class="cards-deck" id="cards-deck"></div>
+      <p class="draw-sub">三张大阿卡纳 · 正逆位随机</p>
+    </section>
+
+    <!-- ======== 结果页 ======== -->
+    <section class="view hidden" id="view-result">
+      <h2 class="result-title">你的三张牌</h2>
+      <div class="cards-result" id="cards-result"></div>
+
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">完整提示词</span>
+          <button class="btn-copy" id="btn-copy" type="button">一键复制</button>
+        </div>
+        <textarea class="prompt-area" id="prompt-area" readonly spellcheck="false"></textarea>
+        <p class="prompt-hint">将上方提示词复制到任意大模型（ChatGPT / Claude / DeepSeek 等）即可获得解读，无需调整格式。</p>
+      </div>
+
+      <button class="btn-secondary" id="btn-restart" type="button">重新测试</button>
+
+      <footer class="compliance">本工具为开源趣味心理反思玩具，卡牌由本地随机算法生成，仅供娱乐，不构成任何人生决策建议。</footer>
+    </section>
+
+    <!-- ======== Toast 轻提示 ======== -->
+    <div class="toast" id="toast" role="status"></div>
+
+  </div>
+
+  <script src="js/cards.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/draw.js"></script>
+  <script src="js/prompt.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
