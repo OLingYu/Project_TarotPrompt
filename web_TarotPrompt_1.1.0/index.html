@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="TarotPrompt v1.1.0 · 塔罗占卜提示词生成器：12 道自我状态问卷 + 长按集牌 · 洗牌 · 数字抽牌 · 逐张翻牌，三张命运之牌串联生成可粘贴到任意大模型的占卜提示词。仅供娱乐与自我反思。">
+  <title>TarotPrompt · 塔罗占卜提示词生成器 v1.1.0</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <button class="btn-more" id="btn-more" type="button">☰ 更多</button>
+
+  <div class="app">
+
+    <!-- ======== 欢迎页 ======== -->
+    <section class="view" id="view-welcome">
+      <header class="hero">
+        <div class="logo-star">✦</div>
+        <h1 class="logo">TarotPrompt</h1>
+        <p class="subtitle">塔罗占卜提示词生成器 v1.1.0</p>
+      </header>
+      <p class="intro">完成 12 道自我状态问卷 → 长按收集卡牌 → 洗牌三次 → 数字选号抽牌 → 逐张翻牌 → 一键生成命运三牌解读提示词。</p>
+      <div class="notice">
+        <p><strong>本工具不内置 AI：</strong>只负责生成提示词，最终解读由你复制到外部大模型（如 ChatGPT、Claude、DeepSeek 等）完成。</p>
+        <p><strong>抽牌与答题、选号完全无关：</strong>卡牌由本地随机算法生成，正逆位各 50% 均等概率；数字选择仅为占卜仪式动画，不影响抽牌结果。</p>
+      </div>
+      <button class="btn-primary" id="btn-start" type="button">开始占卜</button>
+      <footer class="compliance">本工具为开源趣味心理反思玩具，卡牌由本地随机算法生成，仅供娱乐，不构成任何人生决策建议。</footer>
+    </section>
+
+    <!-- ======== 答题页 ======== -->
+    <section class="view hidden" id="view-quiz">
+      <header class="quiz-header">
+        <span class="progress-text" id="progress-text">1 / 12</span>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      </header>
+      <main class="quiz-body">
+        <h2 class="question" id="question-text"></h2>
+        <div class="options" id="options"></div>
+      </main>
+    </section>
+
+    <!-- ======== 长按收集卡牌 ======== -->
+    <section class="view hidden" id="view-collect">
+      <h2 class="stage-title">收集卡牌</h2>
+      <p class="stage-hint" id="collect-hint">长按并保持，卡牌将被吸收到光标处…</p>
+      <p class="collect-progress" id="collect-progress">已收集 0 / 22</p>
+      <div class="collect-grid" id="collect-grid"></div>
+    </section>
+
+    <!-- ======== 洗牌 ======== -->
+    <section class="view hidden" id="view-shuffle">
+      <h2 class="stage-title">洗牌</h2>
+      <p class="stage-hint" id="shuffle-round">第 1 次洗牌</p>
+      <div class="shuffle-queue" id="shuffle-queue"></div>
+      <button type="button" class="btn-primary shuffle-btn" id="shuffle-btn">点击开始第 1 次洗牌</button>
+      <p class="stage-sub">命运的牌序正在被打乱…</p>
+    </section>
+
+    <!-- ======== 数字选号抽牌 ======== -->
+    <section class="view hidden" id="view-pick">
+      <h2 class="stage-title">抽牌 · 数字选号</h2>
+      <p class="stage-hint" id="pick-hint">点击下方数字，抽取命运之牌（0 / 3）</p>
+      <div class="pick-deck" id="pick-deck"></div>
+      <div class="pick-slots" id="pick-slots"></div>
+      <div class="pick-numbers" id="pick-numbers"></div>
+      <p class="stage-sub">数字仅为占卜仪式动画，不改变抽牌结果</p>
+    </section>
+
+    <!-- ======== 逐张翻牌 ======== -->
+    <section class="view hidden" id="view-flip">
+      <h2 class="stage-title">翻开命运之牌</h2>
+      <p class="stage-hint" id="flip-hint">点击第一张牌，翻开命运的篇章</p>
+      <div class="flip-row" id="flip-row"></div>
+      <p class="flip-page-hint hidden" id="flip-page-hint">三张牌已全部揭示 —— 点击任意处，查看占卜结果</p>
+    </section>
+
+    <!-- ======== 结果页 ======== -->
+    <section class="view hidden" id="view-result">
+      <h2 class="result-title">命运三牌 · 占卜结果</h2>
+      <div class="cards-result" id="cards-result"></div>
+      <div class="prompt-box">
+        <div class="prompt-header">
+          <span class="prompt-label">完整提示词</span>
+          <button class="btn-copy" id="btn-copy" type="button">一键复制</button>
+        </div>
+        <textarea class="prompt-area" id="prompt-area" readonly spellcheck="false"></textarea>
+        <p class="prompt-hint">将上方提示词复制到任意大模型（ChatGPT / Claude / DeepSeek 等）即可获得命运解读，无需调整格式。本次提示词已自动存入「更多 → 历史记录」。</p>
+      </div>
+      <button class="btn-secondary" id="btn-restart" type="button">重新占卜</button>
+      <footer class="compliance">本工具为开源趣味心理反思玩具，卡牌由本地随机算法生成，仅供娱乐，不构成任何人生决策建议。</footer>
+    </section>
+
+  </div>
+
+  <!-- ======== 收集堆叠（body 直接子级：避免 .view 的 transform 影响 fixed 定位） ======== -->
+  <div class="collect-stack" id="collect-stack"></div>
+
+  <!-- ======== 更多弹窗 ======== -->
+  <div class="modal-overlay hidden" id="modal-more">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <span class="modal-title">更多</span>
+        <button class="modal-close" id="modal-close" type="button">✕</button>
+      </div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="edit" type="button">编辑题目与回答</button>
+        <button class="modal-tab" data-tab="history" type="button">历史记录</button>
+        <button class="modal-tab" data-tab="public" type="button">公共查看</button>
+        <button class="modal-tab" data-tab="sound" type="button">声音设置</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-pane" id="pane-edit"></div>
+        <div class="modal-pane hidden" id="pane-history"></div>
+        <div class="modal-pane hidden" id="pane-public"></div>
+        <div class="modal-pane hidden" id="pane-sound"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== Toast ======== -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="js/cards.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/draw.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/prompt.js"></script>
+  <script src="js/more.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
