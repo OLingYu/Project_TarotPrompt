@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 与网页主题背景色 #14121A 保持一致 -->
+    <color name="background_dark">#14121A</color>
+    <color name="ic_launcher_background">#14121A</color>
+</resources>
