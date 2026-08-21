@@ -200,7 +200,7 @@ gradlew.bat assembleRelease       # 产物：app/build/outputs/apk/release/app-r
 
 ## 📜 版本历史
 
-### v1.1.0（当前）— 2025
+### v1.1.0（当前）
 
 **新增**
 - 全新塔罗画风 22 张大阿卡纳美术资源
@@ -219,7 +219,7 @@ gradlew.bat assembleRelease       # 产物：app/build/outputs/apk/release/app-r
 - 历史记录超上限未正确丢弃
 - 部分浏览器背景音乐自动播放 / 音量异常
 
-### v1.0.0 — 2025
+### v1.0.0 
 
 - 基础版：12 道问卷 + 随机抽取 3 张大阿卡纳 + 一键生成解读提示词
 - 问卷与抽牌完全解耦的核心设计（Fisher-Yates，正逆位各 50%）
@@ -242,7 +242,7 @@ gradlew.bat assembleRelease       # 产物：app/build/outputs/apk/release/app-r
 ```text
 MIT License
 
-Copyright (c) 2025 TarotPrompt
+Copyright (c) 2026 TarotPrompt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
